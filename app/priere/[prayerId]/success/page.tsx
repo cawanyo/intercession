@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 
 export interface Props {
   params: Promise<{ prayerId: string }>;
-  searchParams: Promise<{ [key: string]: string }>;
+  searchParams: { [key: string]: string };
 }
 
 
@@ -23,7 +23,6 @@ export default function Success({ params, searchParams }: Props) {
 
   useEffect(() => {
     params.then(resolved => setPrayerId(resolved.prayerId));
-    searchParams.then(resolved => setResolvedSearchParams(resolved));
   }, [params, searchParams]);
 
     const prayer = useQuery(api.prayer.getPrayer, {_id: prayerId as Id<"prayer">});
