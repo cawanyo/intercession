@@ -10,7 +10,14 @@ import Link from 'next/link'
 import React from 'react'
 import { useState, useEffect } from "react";
 
-export default function Success({ params }: { params: Promise<{ prayerId: string }> }) {
+export interface Props {
+  params: Promise<{ prayerId: string }>;
+  searchParams: Promise<{ [key: string]: string }>;
+}
+
+
+
+export default function Success({ params, searchParams }: Props) {
   const [prayerId, setPrayerId] = useState<string | null>(null);
 
   useEffect(() => {
