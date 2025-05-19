@@ -1,6 +1,23 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
+
+
+
 import "./globals.css";
+import { ConvexClientProvider } from "@/ConvexClientProvider";
+import { cn } from "@/lib/utils";
+import NavBar from "@/components/home/NavBar";
+import { Footer } from "@/components/home/Footer";
+
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,12 +40,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <ClerkProvider
+      signInUrl="/sign-in"
+      signUpUrl="/sign-up"
+      afterSignOutUrl={'/home'}
+    >
+      <ConvexClientProvider>
+        <html lang="en">
+          <body
+            className={cn("bg-[url('/assets/images/background.jpg')]  bg-cover bg-center min-h-screen ",  `${geistSans.variable} ${geistMono.variable} antialiased`)}>
+            <NavBar />
+            {children}
+          </body>
+        </html>
+      </ConvexClientProvider>
+    </ClerkProvider>
   );
 }
