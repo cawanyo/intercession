@@ -57,8 +57,10 @@ export default function Priere() {
             sujectType: formData.subjectType as string,
             userId: user?.id
         });
-        if (prayerId)
+        if (prayerId){
           router.push(`priere/${prayerId}/success`)
+        }
+          
     }catch(err){
         console.log(err);
     }
