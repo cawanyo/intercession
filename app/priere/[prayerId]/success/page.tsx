@@ -16,15 +16,9 @@ export interface Props {
 }
 
 
-
 export default function Success({ params, searchParams }: Props) {
-  const [prayerId, setPrayerId] = useState<string | null>(null);
-  const [resolvedSearchParams, setResolvedSearchParams] = useState<{ [key: string]: string } | null>(null);
-
-  useEffect(() => {
-    params.then(resolved => setPrayerId(resolved.prayerId));
-  }, [params, searchParams]);
-
+ 
+   const { prayerId } = React.use(params);
     const prayer = useQuery(api.prayer.getPrayer, {_id: prayerId as Id<"prayer">});
     const subjectType = SubjectType.find((element) => element.name === prayer?.subjectType);
     const image = subjectType? subjectType.image : SubjectType[SubjectType.length-1].image;
