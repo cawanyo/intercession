@@ -19,11 +19,12 @@ export interface Props {
 
 export default function Success({ params, searchParams }: Props) {
   const [prayerId, setPrayerId] = useState<string | null>(null);
+  const [resolvedSearchParams, setResolvedSearchParams] = useState<{ [key: string]: string } | null>(null);
 
   useEffect(() => {
     params.then(resolved => setPrayerId(resolved.prayerId));
-  }, [params]);
-
+    searchParams.then(resolved => setResolvedSearchParams(resolved));
+  }, [params, searchParams]);
 
     const prayer = useQuery(api.prayer.getPrayer, {_id: prayerId as Id<"prayer">});
     const subjectType = SubjectType.find((element) => element.name === prayer?.subjectType);
